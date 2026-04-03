@@ -2,12 +2,12 @@ import Link from 'next/link'
 
 export default function AboutAuthor() {
   return (
-    <main className="container" style={{ padding: '6rem 0' }}>
-      <div className="glass-panel" style={{ padding: '4rem', maxWidth: '800px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '3rem', color: 'var(--accent-primary)', marginBottom: '1rem', textAlign: 'center' }}>
+    <main className="container" style={{ padding: '4rem 0' }}>
+      <div className="glass-panel" style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+        <h1 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', textAlign: 'center' }}>
           Dr. Adithyan V Pramod
         </h1>
-        <h2 style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', textAlign: 'center', marginBottom: '3rem', fontWeight: 400, letterSpacing: '1px' }}>
+        <h2 style={{ color: 'var(--text-secondary)', textAlign: 'center', marginBottom: '3rem', fontWeight: 400, letterSpacing: '1px' }}>
           Author & Creator, Pulpe Dentaire
         </h2>
 

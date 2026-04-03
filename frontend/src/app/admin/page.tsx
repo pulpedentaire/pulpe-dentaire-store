@@ -128,7 +128,7 @@ export default function AdminDashboard() {
       </div>
       
       {/* Stats and Manage orders code ... remains same or similar */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginBottom: '3rem' }}>
+      <div className="mobile-grid-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginBottom: '3rem' }}>
          <div className="glass-panel" style={{ padding: '2rem' }}>
             <h4 style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Total Orders</h4>
             <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>{orders.length}</div>
@@ -145,7 +145,7 @@ export default function AdminDashboard() {
 
       <div className="glass-panel" style={{ padding: '2rem', marginBottom: '3rem' }}>
          <h2 style={{ marginBottom: '1.5rem' }}>Add New Book to Catalog</h2>
-         <form onSubmit={handleAddBook} style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
+         <form onSubmit={handleAddBook} className="mobile-grid-1" style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
             <input name="title" placeholder="Book Title" required style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
             <input name="isbn" placeholder="ISBN (Unique)" required style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
             <input name="price" type="number" placeholder="Price (₹)" required style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
@@ -163,7 +163,8 @@ export default function AdminDashboard() {
 
       <div className="glass-panel" style={{ padding: '2rem' }}>
          <h2 style={{ marginBottom: '1.5rem' }}>Manage Orders</h2>
-         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+         <div className="table-container">
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
                <tr style={{ borderBottom: '1px solid var(--glass-border)' }}>
                   <th style={{ padding: '1rem', color: 'var(--text-secondary)' }}>Order ID</th>
@@ -213,6 +214,7 @@ export default function AdminDashboard() {
                )}
             </tbody>
          </table>
+         </div>
       </div>
     </main>
   )

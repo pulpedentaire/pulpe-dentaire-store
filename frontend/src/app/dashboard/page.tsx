@@ -84,7 +84,7 @@ export default function UserDashboard() {
     <main className="container" style={{ padding: '4rem 0' }}>
       <h1 style={{ marginBottom: '2rem' }}>My Account</h1>
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(250px, 1fr) 3fr', gap: '2rem' }}>
+      <div className="mobile-grid-1" style={{ display: 'grid', gridTemplateColumns: 'minmax(250px, 1fr) 3fr', gap: '2rem' }}>
         
         {/* Sidebar */}
         <div className="glass-panel" style={{ padding: '2rem', height: 'fit-content' }}>

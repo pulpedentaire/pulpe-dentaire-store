@@ -38,11 +38,12 @@ export default function Home() {
       <section 
         ref={containerRef}
         style={{ 
-          height: '90vh', 
+          minHeight: '80vh', 
           display: 'flex', 
           alignItems: 'center', 
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          padding: '4rem 0'
         }}
       >
         <motion.div 
@@ -54,7 +55,8 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              style={{ fontSize: '4rem', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.1 }}
+              style={{ fontWeight: 800, marginBottom: '1rem', lineHeight: 1.1 }}
+              className="hero-title"
             >
               Master Dentistry. <br/>
               <span style={{ color: 'var(--accent-primary)' }}>Simplified.</span>
@@ -80,7 +82,7 @@ export default function Home() {
         </motion.div>
 
         {/* 3D Animated Books Background */}
-        <div style={{ position: 'absolute', right: '5%', top: '10%', width: '50%', height: '80%', perspective: '1200px', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 20 }}>
+        <div className="mobile-hide" style={{ position: 'absolute', right: '5%', top: '10%', width: '50%', height: '80%', perspective: '1200px', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 20 }}>
           {books.map((book, i) => (
             <motion.div
               key={book.id}
@@ -129,7 +131,7 @@ export default function Home() {
       <section style={{ padding: '6rem 0', background: 'var(--surface-secondary)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>The Collection</h2>
+            <h2 style={{ marginBottom: '1rem' }}>The Collection</h2>
             <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto' }}>Three essential volumes crafted meticulously from past KUHS papers to guarantee exam success.</p>
           </div>
           

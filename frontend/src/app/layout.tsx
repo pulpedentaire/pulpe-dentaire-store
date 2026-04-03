@@ -18,17 +18,17 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CartProvider>
-          <nav className="glass-nav" style={{ height: 'var(--nav-height)', display: 'flex', alignItems: 'center', position: 'sticky', top: 0, zIndex: 100 }}>
-            <div className="container" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <nav className="glass-nav" style={{ minHeight: 'var(--nav-height)', display: 'flex', alignItems: 'center', position: 'sticky', top: 0, zIndex: 100, padding: '0.5rem 0' }}>
+            <div className="container mobile-stack" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Link href="/">
                   <img src="/logo.png" alt="Pulpe Dentaire Logo" style={{ height: '60px', width: 'auto' }} />
                 </Link>
               </div>
-              <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                <a href="/">Home</a>
-                <a href="/books">Books</a>
-                <a href="/about">About Author</a>
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+                <Link href="/">Home</Link>
+                <Link href="/books">Books</Link>
+                <Link href="/about">About Author</Link>
                 <CartButton />
               </div>
             </div>

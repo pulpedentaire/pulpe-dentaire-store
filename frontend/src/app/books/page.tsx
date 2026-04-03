@@ -23,9 +23,9 @@ const books = [
 
 export default function BooksPage() {
   return (
-    <main className="container" style={{ padding: '6rem 0' }}>
-      <h1 style={{ fontSize: '3rem', textAlign: 'center', marginBottom: '4rem' }}>The Collection</h1>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+    <main className="container" style={{ padding: '4rem 0' }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '4rem' }}>The Collection</h1>
+      <div className="mobile-grid-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
         {books.map(book => (
           <div key={book.id} className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
             <img src={book.image} alt={book.title} style={{ width: '100%', height: '350px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem' }} />

@@ -40,16 +40,16 @@ export default function BookDetails({ params }: { params: { isbn: string } }) {
 
   return (
     <main className="container" style={{ padding: '4rem 0' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
+      <div className="mobile-grid-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
         
         {/* Left Image View */}
-        <div style={{ position: 'sticky', top: '120px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }} className="book-detail-image-container">
            <img src={book.image} alt={book.title} className="glass-panel" style={{ width: '100%', maxWidth: '350px', height: 'auto', objectFit: 'cover', borderRadius: '16px', padding: 0 }} />
         </div>
 
         {/* Right Info View */}
         <div>
-          <h1 style={{ fontSize: '3rem', marginBottom: '1rem', lineHeight: 1.2 }}>{book.title}</h1>
+          <h1 style={{ marginBottom: '1rem', lineHeight: 1.2 }}>{book.title}</h1>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>ISBN: {book.isbn}</p>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
             ₹{book.price} <span style={{ textDecoration: 'line-through', color: 'gray', fontSize: '1.2rem' }}>₹300</span>
