@@ -26,7 +26,7 @@ export default function CheckoutPage() {
       const order = await res.json()
 
       const options = {
-        key: "rzp_test_SYwa4bn612fEHl",
+        key: "rzp_test_SZ2uHc40OZj2Zc",
         amount: order.amount,
         currency: order.currency,
         name: "Pulpe Dentaire",
