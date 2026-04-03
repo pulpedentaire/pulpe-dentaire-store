@@ -3,16 +3,50 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 export default function AdminDashboard() {
+  const [isAuthorized, setIsAuthorized] = useState(false)
+  const [password, setPassword] = useState("")
+  const [authError, setAuthError] = useState("")
+  
   const [orders, setOrders] = useState<any[]>([])
   const [statusUpdates, setStatusUpdates] = useState<{[key:number]: string}>({})
 
-  useEffect(() => {
+  // Handle Login
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError("");
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://pulpe-dentaire-store.onrender.com/api'}/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsAuthorized(true);
+        sessionStorage.setItem('adminAuthorized', 'true');
+        fetchOrders();
+      } else {
+        setAuthError("Incorrect password. Access denied.");
+      }
+    } catch (err) {
+      setAuthError("Server connection failed.");
+    }
+  }
+
+  const fetchOrders = () => {
     fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/orders` : 'https://pulpe-dentaire-store.onrender.com/api/orders')
       .then(res => res.json())
       .then(data => {
         if(Array.isArray(data)) setOrders(data)
       })
       .catch(console.error)
+  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem('adminAuthorized') === 'true') {
+      setIsAuthorized(true);
+      fetchOrders();
+    }
   }, [])
 
   const handleAddBook = async (e: React.FormEvent) => {
@@ -52,15 +86,48 @@ export default function AdminDashboard() {
     }
   }
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('adminAuthorized');
+    setIsAuthorized(false);
+  }
+
+  if (!isAuthorized) {
+    return (
+      <main className="container" style={{ padding: '8rem 0', display: 'flex', justifyContent: 'center' }}>
+        <div className="glass-panel" style={{ padding: '3rem', maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+          <h2 style={{ marginBottom: '1.5rem' }}>Admin Access</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.9rem' }}>This area is restricted. Please enter the administrator password to proceed.</p>
+          <form onSubmit={handleLogin}>
+            <input 
+              type="password" 
+              placeholder="Enter Password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ width: '100%', padding: '12px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '8px', marginBottom: '1rem' }} 
+            />
+            {authError && <p style={{ color: '#ff4d4d', fontSize: '0.8rem', marginBottom: '1rem' }}>{authError}</p>}
+            <button className="btn-primary" style={{ width: '100%', padding: '12px' }}>Verify Identity</button>
+          </form>
+        </div>
+      </main>
+    )
+  }
+
   const totalRevenue = orders.reduce((sum, o) => sum + o.total_amount, 0)
   const pendingCount = orders.filter(o => o.status === 'PENDING' || o.status === 'PAID').length
+  
   return (
     <main className="container" style={{ padding: '4rem 0' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h1>Admin Control Panel</h1>
-        <button style={{ background: 'none', border: '1px solid #ff4d4d', color: '#ff4d4d', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }}>Admin Logout</button>
+        <button 
+          onClick={handleLogout}
+          style={{ background: 'none', border: '1px solid #ff4d4d', color: '#ff4d4d', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }}
+        >Admin Logout</button>
       </div>
       
+      {/* Stats and Manage orders code ... remains same or similar */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginBottom: '3rem' }}>
          <div className="glass-panel" style={{ padding: '2rem' }}>
             <h4 style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Total Orders</h4>
@@ -96,7 +163,6 @@ export default function AdminDashboard() {
 
       <div className="glass-panel" style={{ padding: '2rem' }}>
          <h2 style={{ marginBottom: '1.5rem' }}>Manage Orders</h2>
-         
          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
                <tr style={{ borderBottom: '1px solid var(--glass-border)' }}>

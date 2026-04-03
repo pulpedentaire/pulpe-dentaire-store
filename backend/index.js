@@ -166,6 +166,47 @@ app.post('/api/payment/verify', async (req, res) => {
   }
 });
 
+// User Order Lookup (Get real orders by email)
+app.get('/api/users/orders/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: {
+        orders: {
+          include: {
+            order_items: {
+              include: { book: true }
+            }
+          },
+          orderBy: { created_at: 'desc' }
+        }
+      }
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "No account found with this email." });
+    }
+
+    res.json({
+      name: user.name,
+      orders: user.orders
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Simple Admin Login (Verify password from .env)
+app.post('/api/admin/login', (req, res) => {
+  const { password } = req.body;
+  if (password === process.env.ADMIN_PASSWORD) {
+    res.json({ success: true });
+  } else {
+    res.status(401).json({ success: false, message: "Invalid password" });
+  }
+});
+
 // GET all orders for Admin panel
 app.get('/api/orders', async (req, res) => {
   try {
