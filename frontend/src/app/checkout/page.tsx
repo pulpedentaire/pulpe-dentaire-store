@@ -18,7 +18,7 @@ export default function CheckoutPage() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/payment/create-order', {
+      const res = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/payment/create-order` : 'https://pulpe-dentaire-store.onrender.com/api/payment/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: totalPrice * 100 }) // Razorpay expects paise
@@ -33,7 +33,7 @@ export default function CheckoutPage() {
         description: "Dental Books Checkout",
         order_id: order.id,
         handler: async function (response: any) {
-          const verifyRes = await fetch('http://localhost:5000/api/payment/verify', {
+          const verifyRes = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/payment/verify` : 'https://pulpe-dentaire-store.onrender.com/api/payment/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

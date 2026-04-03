@@ -12,7 +12,7 @@ export default function BookDetails({ params }: { params: { isbn: string } }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/books/${params.isbn}`)
+    fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/books/${params.isbn}` : `https://pulpe-dentaire-store.onrender.com/api/books/${params.isbn}`)
       .then(r => r.json())
       .then(d => {
         if(!d.error) setBook(d)

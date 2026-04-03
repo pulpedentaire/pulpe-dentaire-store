@@ -15,7 +15,7 @@ export default function Home() {
   const [books, setBooks] = useState<any[]>([])
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/books')
+    fetch(process.env.NEXT_PUBLIC_API_URL || 'https://pulpe-dentaire-store.onrender.com/api/books')
       .then(res => res.json())
       .then(data => {
         if(Array.isArray(data)) {

@@ -7,7 +7,7 @@ export default function AdminDashboard() {
   const [statusUpdates, setStatusUpdates] = useState<{[key:number]: string}>({})
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/orders')
+    fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/orders` : 'https://pulpe-dentaire-store.onrender.com/api/orders')
       .then(res => res.json())
       .then(data => {
         if(Array.isArray(data)) setOrders(data)
@@ -20,7 +20,7 @@ export default function AdminDashboard() {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     try {
-      const res = await fetch('http://localhost:5000/api/books', { method: 'POST', body: formData });
+      const res = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/books` : 'https://pulpe-dentaire-store.onrender.com/api/books', { method: 'POST', body: formData });
       const data = await res.json();
       if(data.success) {
         alert("Book Added successfully!");
@@ -35,7 +35,7 @@ export default function AdminDashboard() {
 
   const handleUpdateStatus = async (id: number, newStatus: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/${id}/status`, {
+      const res = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/orders/${id}/status` : `https://pulpe-dentaire-store.onrender.com/api/orders/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
