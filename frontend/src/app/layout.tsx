@@ -7,6 +7,9 @@ import CartButton from '../components/CartButton'
 export const metadata: Metadata = {
   title: 'Pulpe Dentaire - Premium Dental Books',
   description: 'High-end exam-focused dental books by Dr. Adithyan V Pramod',
+  icons: {
+    icon: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
