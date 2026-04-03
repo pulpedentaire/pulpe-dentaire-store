@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "multer": "^2.1.1",
+    "razorpay": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest",
+    "prisma": "^5.22.0"
+  }
+}

@@ -1,0 +1,5 @@
+Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\megha\Projects\Pulpe Dentaire\backend\node_modules\@prisma\client\default.js
+- C:\Users\megha\Projects\Pulpe Dentaire\backend\index.js
+- C:\Users\megha\Projects\Pulpe Dentaire\backend\test.js

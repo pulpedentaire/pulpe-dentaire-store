@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String
+  email         String    @unique
+  password_hash String
+  phone         String
+  role          String    @default("CUSTOMER") // CUSTOMER, ADMIN
+  addresses     Address[]
+  orders        Order[]
+  created_at    DateTime  @default(now())
+}
+
+model Address {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  user       User     @relation(fields: [user_id], references: [id])
+  street     String
+  city       String
+  state      String
+  zip        String
+  country    String
+  orders     Order[]
+  created_at DateTime @default(now())
+}
+
+model Book {
+  id          Int         @id @default(autoincrement())
+  isbn        String      @unique
+  title       String
+  description String
+  price       Float
+  features    String[]
+  image       String      @default("/general-medicine.jpg")
+  stock       Int         @default(0)
+  order_items OrderItem[]
+  created_at  DateTime    @default(now())
+}
+
+model Order {
+  id                Int         @id @default(autoincrement())
+  user_id           Int
+  user              User        @relation(fields: [user_id], references: [id])
+  address_id        Int
+  address           Address     @relation(fields: [address_id], references: [id])
+  status            String      @default("PENDING") // PENDING, PAID, SHIPPED, DELIVERED
+  tracking_status   String?
+  razorpay_order_id String?
+  total_amount      Float
+  order_items       OrderItem[]
+  created_at        DateTime    @default(now())
+}
+
+model OrderItem {
+  id            Int      @id @default(autoincrement())
+  order_id      Int
+  order         Order    @relation(fields: [order_id], references: [id])
+  book_id       Int
+  book          Book     @relation(fields: [book_id], references: [id])
+  quantity      Int
+  price_at_time Float
+  created_at    DateTime @default(now())
+}
