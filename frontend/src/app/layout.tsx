@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { CartProvider } from '../context/CartContext'
 import Navbar from '../components/Navbar'
+import DentalBackground from '../components/DentalBackground'
 
 export const metadata: Metadata = {
   title: 'Pulpe Dentaire - Premium Dental Books',
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CartProvider>
+          <DentalBackground />
           <Navbar />
           {children}
           <footer style={{
