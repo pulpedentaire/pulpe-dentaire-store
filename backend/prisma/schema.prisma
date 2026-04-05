@@ -42,7 +42,7 @@ model Book {
   description String
   price       Float
   features    String[]
-  image       String      @default("/general-medicine.jpg")
+  image       String      @default("/general-medicine.png")
   stock       Int         @default(0)
   order_items OrderItem[]
   created_at  DateTime    @default(now())
