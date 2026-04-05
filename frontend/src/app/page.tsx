@@ -144,7 +144,7 @@ export default function Home() {
           className="container"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp} style={{ textAlign: 'center', marginBottom: '4rem' }}>
