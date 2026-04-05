@@ -15,21 +15,23 @@ export default function CartPage() {
             <Link href="/books"><button className="btn-primary">Browse Books</button></Link>
          </div>
       ) : (
-         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '3rem' }}>
+          <div className="cart-grid">
             {/* Cart Items List */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                {cartItems.map(item => (
-                  <div key={item.id} className="glass-panel" style={{ display: 'flex', justifyContent: 'space-between', padding: '1.5rem', alignItems: 'center' }}>
-                     <div>
+                  <div key={item.id} className="glass-panel cart-item-card">
+                     <div className="cart-item-info">
                         <h4 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{item.title}</h4>
                         <p style={{ color: 'var(--text-secondary)' }}>ISBN: {item.isbn}</p>
                      </div>
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <select value={item.quantity} onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))} style={{ background: 'transparent', color: 'white', border: '1px solid var(--glass-border)', padding: '5px 10px', borderRadius: '4px' }}>
-                           {[1,2,3,4,5].map(q => <option key={q} value={q} style={{ color: 'black' }}>{q}</option>)}
-                        </select>
-                        <div style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>₹{item.price * item.quantity}</div>
-                        <button onClick={() => removeFromCart(item.id)} style={{ background: 'transparent', border: 'none', color: '#ff4d4d', cursor: 'pointer', fontSize: '1.5rem' }}>×</button>
+                     <div className="cart-item-actions">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                           <select value={item.quantity} onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))} style={{ background: 'transparent', color: 'white', border: '1px solid var(--glass-border)', padding: '5px 10px', borderRadius: '4px' }}>
+                              {[1,2,3,4,5].map(q => <option key={q} value={q} style={{ color: 'black' }}>{q}</option>)}
+                           </select>
+                           <div style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>₹{item.price * item.quantity}</div>
+                        </div>
+                        <button onClick={() => removeFromCart(item.id)} style={{ background: 'transparent', border: 'none', color: '#ff4d4d', cursor: 'pointer', fontSize: '1.5rem', marginLeft: '1rem' }}>×</button>
                      </div>
                   </div>
                ))}
@@ -44,7 +46,7 @@ export default function CartPage() {
                </div>
                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                   <span>Shipping</span>
-                  <span style={{ color: 'var(--text-secondary)' }}>Calculated at checkout</span>
+                  <span style={{ color: 'var(--text-secondary)', textAlign: 'right' }}>Calculated at checkout</span>
                </div>
                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem', paddingTop: '1rem', borderTop: '1px solid var(--glass-border)', fontSize: '1.2rem', fontWeight: 'bold' }}>
                   <span>Total</span>
@@ -55,7 +57,7 @@ export default function CartPage() {
                   <button className="btn-primary" style={{ width: '100%', marginTop: '2rem' }}>Proceed to Checkout</button>
                </Link>
             </div>
-         </div>
+          </div>
       )}
     </main>
   )
