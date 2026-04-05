@@ -23,11 +23,16 @@ export default function Home() {
           const colors = ["linear-gradient(135deg, #1f2833, #0b0c10)", "linear-gradient(135deg, #2b1f33, #110b10)", "linear-gradient(135deg, #33241f, #100d0b)"]
           const accents = ["#66fcf1", "#c166fc", "#fc8c66"]
           
-          setBooks(data.map((b, i) => ({
-            ...b,
-            color: colors[i % colors.length],
-            accent: accents[i % accents.length]
-          })))
+          setBooks(data.map((b, i) => {
+            const accents = ["#fc8c66", "#66fc8c", "#c166fc"]
+            const colors = ["linear-gradient(135deg, #2a1109, #0b0c10)", "linear-gradient(135deg, #092a11, #0b0c10)", "linear-gradient(135deg, #11092a, #0b0c10)"]
+            
+            return {
+              ...b,
+              color: colors[i % colors.length],
+              accent: accents[i % accents.length]
+            }
+          }))
         }
       })
       .catch(console.error)
@@ -122,7 +127,7 @@ export default function Home() {
                 alignItems: 'center',
                 padding: '0',
                 borderLeft: `4px solid ${book.accent}`,
-                boxShadow: '-10px 10px 30px rgba(0,0,0,0.8), inset 2px 2px 10px rgba(255,255,255,0.1)',
+                boxShadow: `-10px 10px 30px rgba(0,0,0,0.8), inset 2px 2px 10px rgba(255,255,255,0.1)`,
                 cursor: 'pointer',
                 textAlign: 'center'
               }}
@@ -154,7 +159,12 @@ export default function Home() {
                 variants={fadeInUp}
                 whileHover={{ y: -10 }}
                 className="glass-panel"
-                style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}
+                style={{ 
+                  padding: '2rem', 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  borderTop: `4px solid ${book.accent}`
+                }}
               >
                 <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px', marginBottom: '1.5rem' }}>
                   <img src={book.image} alt={book.title} style={{ 
@@ -165,7 +175,7 @@ export default function Home() {
                     borderLeft: `3px solid ${book.accent}`
                   }} />
                 </div>
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{book.title}</h3>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: book.accent }}>{book.title}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem', flex: 1 }}>
                   Comprehensive guides designed to simplify complex concepts and maximize retention.
                 </p>
@@ -174,8 +184,14 @@ export default function Home() {
                     variants={hoverScale}
                     whileHover="whileHover"
                     whileTap="whileTap"
-                    className="btn-secondary" 
-                    style={{ width: '100%', borderColor: book.accent, color: book.accent }}
+                    className="btn-primary" 
+                    style={{ 
+                      width: '100%', 
+                      background: book.accent, 
+                      color: '#000',
+                      border: 'none',
+                      boxShadow: `0 4px 15px ${book.accent}44`
+                    }}
                   >
                     View Details
                   </motion.button>
