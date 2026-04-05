@@ -33,26 +33,26 @@ export default function DentalBackground() {
       const material = new THREE.SpriteMaterial({ 
         map: toothTextures[i % toothTextures.length],
         transparent: true,
-        opacity: 0.6 + Math.random() * 0.4,
-        blending: THREE.AdditiveBlending // Good for the black background textures
+        opacity: 0.15 + Math.random() * 0.25, // Much softer
+        blending: THREE.AdditiveBlending // Standard for black-background sprites
       })
       const sprite = new THREE.Sprite(material)
       
       // Random initial position
       sprite.position.set(
         (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 20,
+        (Math.random() - 0.5) * 25, // More vertical spread
         (Math.random() - 0.5) * 15 - 5
       )
       
       // Random scale for depth
-      const scale = 1.5 + Math.random() * 2
+      const scale = 2 + Math.random() * 3
       sprite.scale.set(scale, scale, 1)
       
       // Custom properties for animation
       ;(sprite as any).step = Math.random() * Math.PI * 2
-      ;(sprite as any).speed = 0.002 + Math.random() * 0.005
-      ;(sprite as any).rotationSpeed = (Math.random() - 0.5) * 0.01
+      ;(sprite as any).speed = 0.0005 + Math.random() * 0.001 // Slower drift
+      ;(sprite as any).rotationSpeed = (Math.random() - 0.5) * 0.003 // Slower rotation
 
       scene.add(sprite)
       teeth.push(sprite)

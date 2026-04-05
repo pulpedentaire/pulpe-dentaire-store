@@ -27,6 +27,12 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   line-height: 1.6;
+  position: relative; /* Base for layering */
+}
+
+main, footer {
+  position: relative;
+  z-index: 10; /* Ensure content is on top of DentalBackground (-1) */
 }
 
 a {
