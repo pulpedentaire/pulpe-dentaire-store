@@ -36,9 +36,17 @@ export default function DentalBackground() {
             const r = data[i]
             const g = data[i + 1]
             const b = data[i + 2]
-            // If the pixel is very dark, make it transparent
-            if (r < 15 && g < 15 && b < 15) {
+            
+            // Calculate brightness/luminance
+            const brightness = (r + g + b) / 3
+            
+            // If the pixel is dark, make it transparent
+            // Using a higher threshold (45) to catch compression artifacts
+            if (brightness < 45) {
               data[i + 3] = 0
+            } else if (brightness < 60) {
+              // Smooth transition for edges
+              data[i + 3] = (brightness - 45) / 15 * 255
             }
           }
           ctx.putImageData(imgData, 0, 0)
