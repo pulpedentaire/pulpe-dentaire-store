@@ -100,9 +100,16 @@ main {
 }
 
 /* Responsive Overrides */
+/* Mobile Nav Overrides */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
 @media (max-width: 768px) {
   :root {
-    --nav-height: auto;
+    --nav-height: 70px;
   }
 
   .container {
@@ -121,22 +128,43 @@ main {
     display: none !important;
   }
 
-  .mobile-stack {
-    flex-direction: column !important;
-    gap: 1.5rem !important;
+  .nav-links {
+    display: none; /* Hidden on mobile by default */
+  }
+
+  .mobile-menu-active .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    height: calc(100vh - var(--nav-height));
+    background: rgba(11, 12, 16, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 3rem 1rem;
+    z-index: 1000;
+    gap: 2rem;
+    font-size: 1.5rem;
   }
 
   .mobile-grid-1 {
     grid-template-columns: 1fr !important;
   }
+}
 
-  .table-container {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
 
-  table {
-    min-width: 600px;
-  }
+.skeleton-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.03) 25%, 
+    rgba(255,255,255,0.08) 50%, 
+    rgba(255,255,255,0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }

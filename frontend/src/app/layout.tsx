@@ -1,8 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { CartProvider } from '../context/CartContext'
-import CartButton from '../components/CartButton'
+import Navbar from '../components/Navbar'
 
 export const metadata: Metadata = {
   title: 'Pulpe Dentaire - Premium Dental Books',
@@ -21,21 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CartProvider>
-          <nav className="glass-nav" style={{ minHeight: 'var(--nav-height)', display: 'flex', alignItems: 'center', position: 'sticky', top: 0, zIndex: 100, padding: '0.5rem 0' }}>
-            <div className="container mobile-stack" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: '1rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Link href="/">
-                  <img src="/logo.png" alt="Pulpe Dentaire Logo" style={{ height: '60px', width: 'auto' }} />
-                </Link>
-              </div>
-              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                <Link href="/">Home</Link>
-                <Link href="/books">Books</Link>
-                <Link href="/about">About Author</Link>
-                <CartButton />
-              </div>
-            </div>
-          </nav>
+          <Navbar />
           {children}
           <footer style={{
             background: 'rgba(0,0,0,0.4)',

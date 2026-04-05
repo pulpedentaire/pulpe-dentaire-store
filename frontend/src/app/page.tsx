@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { fadeInUp, staggerContainer, hoverScale } from '../lib/animations'
 
 export default function Home() {
   const router = useRouter()
@@ -48,13 +49,14 @@ export default function Home() {
       >
         <motion.div 
           className="container"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
           style={{ width: '100%', zIndex: 10, y: yParallax, opacity: opacityParallax }}
         >
           <div style={{ maxWidth: '600px' }}>
             <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              variants={fadeInUp}
               style={{ fontWeight: 800, marginBottom: '1rem', lineHeight: 1.1 }}
               className="hero-title"
             >
@@ -62,21 +64,25 @@ export default function Home() {
               <span style={{ color: 'var(--accent-primary)' }}>Simplified.</span>
             </motion.h1>
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              variants={fadeInUp}
               style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', marginBottom: '2.5rem' }}
             >
-              These books are carefully created based on previous year question papers from Kerala University of Health Sciences, making them highly exam-focused and practical. The content is simplified to help students understand complex dental concepts easily. Each topic is explained in a clear and structured manner, supported by hand-drawn diagrams that improve visualization and retention. These books are designed to make studying faster, easier, and more efficient while still encouraging students to refer standard textbooks for deeper understanding
+              These books are carefully created based on previous year question papers from Kerala University of Health Sciences, making them highly exam-focused and practical. The content is simplified to help students understand complex dental concepts easily. Each topic is explained in a clear and structured manner, supported by hand-drawn diagrams that improve visualization and retention.
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              variants={fadeInUp}
               style={{ display: 'flex', gap: '1rem' }}
             >
-              <Link href="/books"><button className="btn-primary">Explore Series</button></Link>
-              <Link href="/about"><button className="btn-secondary">Meet the Author</button></Link>
+              <Link href="/books">
+                <motion.button variants={hoverScale} whileHover="whileHover" whileTap="whileTap" className="btn-primary">
+                  Explore Series
+                </motion.button>
+              </Link>
+              <Link href="/about">
+                <motion.button variants={hoverScale} whileHover="whileHover" whileTap="whileTap" className="btn-secondary">
+                  Meet the Author
+                </motion.button>
+              </Link>
             </motion.div>
           </div>
         </motion.div>
@@ -129,42 +135,55 @@ export default function Home() {
 
       {/* Featured Collection Strip */}
       <section style={{ padding: '6rem 0', background: 'var(--surface-secondary)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <motion.div 
+          className="container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{ marginBottom: '1rem' }}>The Collection</h2>
             <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto' }}>Three essential volumes crafted meticulously from past KUHS papers to guarantee exam success.</p>
-          </div>
+          </motion.div>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
             {books.map(book => (
               <motion.div 
                 key={book.id}
+                variants={fadeInUp}
                 whileHover={{ y: -10 }}
                 className="glass-panel"
                 style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}
               >
-                <img src={book.image} alt={book.title} style={{ 
-                  height: '350px', 
-                  width: '100%',
-                  objectFit: 'cover',
-                  background: book.color, 
-                  borderRadius: '8px', 
-                  marginBottom: '1.5rem',
-                  borderLeft: `3px solid ${book.accent}`
-                }} />
+                <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                  <img src={book.image} alt={book.title} style={{ 
+                    height: '350px', 
+                    width: '100%',
+                    objectFit: 'cover',
+                    background: book.color, 
+                    borderLeft: `3px solid ${book.accent}`
+                  }} />
+                </div>
                 <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{book.title}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem', flex: 1 }}>
                   Comprehensive guides designed to simplify complex concepts and maximize retention.
                 </p>
                 <Link href={`/books/${book.isbn}`}>
-                  <button className="btn-secondary" style={{ width: '100%', borderColor: book.accent, color: book.accent }}>
+                  <motion.button 
+                    variants={hoverScale}
+                    whileHover="whileHover"
+                    whileTap="whileTap"
+                    className="btn-secondary" 
+                    style={{ width: '100%', borderColor: book.accent, color: book.accent }}
+                  >
                     View Details
-                  </button>
+                  </motion.button>
                 </Link>
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
     </main>
   )
