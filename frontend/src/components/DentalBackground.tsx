@@ -17,42 +17,72 @@ export default function DentalBackground() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     mountRef.current.appendChild(renderer.domElement)
 
-    // Textures
-    const textureLoader = new THREE.TextureLoader()
+    // Textures with pure transparency conversion
+    const processTexture = (url: string) => {
+      const img = new Image()
+      img.src = url
+      const texture = new THREE.Texture(img)
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        canvas.width = img.width
+        canvas.height = img.height
+        const ctx = canvas.getContext('2d')
+        if (ctx) {
+          ctx.drawImage(img, 0, 0)
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+          const data = imgData.data
+          // Remove black background (anything very dark)
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i]
+            const g = data[i + 1]
+            const b = data[i + 2]
+            // If the pixel is very dark, make it transparent
+            if (r < 15 && g < 15 && b < 15) {
+              data[i + 3] = 0
+            }
+          }
+          ctx.putImageData(imgData, 0, 0)
+          texture.image = canvas as any
+          texture.needsUpdate = true
+        }
+      }
+      return texture
+    }
+
     const toothTextures = [
-      textureLoader.load('/textures/tooth-1.png'),
-      textureLoader.load('/textures/tooth-2.png'),
-      textureLoader.load('/textures/tooth-3.png')
+      processTexture('/textures/tooth-1.png'),
+      processTexture('/textures/tooth-2.png'),
+      processTexture('/textures/tooth-3.png')
     ]
 
     // Floating Teeth Group
     const teeth: THREE.Sprite[] = []
-    const toothCount = 12
+    const toothCount = 14
 
     for (let i = 0; i < toothCount; i++) {
       const material = new THREE.SpriteMaterial({ 
         map: toothTextures[i % toothTextures.length],
         transparent: true,
-        opacity: 0.15 + Math.random() * 0.25, // Much softer
-        blending: THREE.AdditiveBlending // Standard for black-background sprites
+        opacity: 0.1 + Math.random() * 0.2, // Subtle
+        depthWrite: false // Performance and layering fix
       })
       const sprite = new THREE.Sprite(material)
       
       // Random initial position
       sprite.position.set(
         (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 25, // More vertical spread
-        (Math.random() - 0.5) * 15 - 5
+        (Math.random() - 0.5) * 30, 
+        (Math.random() - 0.5) * 20 - 10
       )
       
       // Random scale for depth
-      const scale = 2 + Math.random() * 3
+      const scale = 2 + Math.random() * 4
       sprite.scale.set(scale, scale, 1)
       
       // Custom properties for animation
       ;(sprite as any).step = Math.random() * Math.PI * 2
-      ;(sprite as any).speed = 0.0005 + Math.random() * 0.001 // Slower drift
-      ;(sprite as any).rotationSpeed = (Math.random() - 0.5) * 0.003 // Slower rotation
+      ;(sprite as any).speed = 0.0003 + Math.random() * 0.0008
+      ;(sprite as any).rotationSpeed = (Math.random() - 0.5) * 0.002
 
       scene.add(sprite)
       teeth.push(sprite)
