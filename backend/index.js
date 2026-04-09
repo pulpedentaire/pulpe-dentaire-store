@@ -60,7 +60,7 @@ app.get('/api/books/:isbn', async (req, res) => {
 // POST to add a new book from Admin Panel
 app.post('/api/books', upload.single('image'), async (req, res) => {
   try {
-    const { isbn, title, description, price, features } = req.body;
+    const { isbn, title, description, price, originalPrice, features } = req.body;
     let imageUrl = "/general-medicine.jpg"; // fallback
     if (req.file) {
       imageUrl = "http://localhost:5000/uploads/" + req.file.filename;
@@ -74,6 +74,7 @@ app.post('/api/books', upload.single('image'), async (req, res) => {
         title,
         description,
         price: parseFloat(price),
+        originalPrice: originalPrice ? parseFloat(originalPrice) : null,
         features: featuresList,
         image: imageUrl
       }
@@ -145,7 +146,7 @@ app.post('/api/payment/verify', async (req, res) => {
               book: {
                 connectOrCreate: {
                   where: { isbn: i.isbn },
-                  create: { isbn: i.isbn, title: i.title, description: "Dental Book", price: i.price }
+                  create: { isbn: i.isbn, title: i.title, description: "Dental Book", price: i.price, originalPrice: 350 }
                 }
               },
               quantity: i.quantity,

@@ -148,7 +148,8 @@ export default function AdminDashboard() {
          <form onSubmit={handleAddBook} className="mobile-grid-1" style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
             <input name="title" placeholder="Book Title" required style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
             <input name="isbn" placeholder="ISBN (Unique)" required style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
-            <input name="price" type="number" placeholder="Price (₹)" required style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
+            <input name="price" type="number" placeholder="Offer Price (₹)" required style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
+            <input name="originalPrice" type="number" placeholder="Original Price (₹)" style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
             <input name="features" placeholder="Features (comma separated)" required style={{ width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px' }} />
             <textarea name="description" placeholder="Description" required style={{ gridColumn: '1 / -1', width: '100%', padding: '10px', background: 'rgba(0,0,0,0.3)', color: 'white', border: '1px solid var(--glass-border)', borderRadius: '4px', minHeight: '80px' }} />
             

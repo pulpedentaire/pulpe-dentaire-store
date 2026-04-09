@@ -17,7 +17,8 @@ async function main() {
       isbn: "978-93-344-0482-1",
       title: "Pulpe Dentaire – General Medicine",
       description: "Simplified approach to General Medicine with hand-drawn diagrams designed for 3rd-year dental students to pass university exams effortlessly.",
-      price: 250,
+      price: 300,
+      originalPrice: 350,
       image: "/general-medicine.jpg",
       features: defaultFeatures
     },
@@ -25,7 +26,8 @@ async function main() {
       isbn: "978-93-344-2283-2",
       title: "Pulpe Dentaire – Oral Pathology",
       description: "Master Oral Pathology with structured points, easy-to-digest concepts, and illustrations that make revising quick and efficient.",
-      price: 250,
+      price: 300,
+      originalPrice: 350,
       image: "/oral-pathology.jpg",
       features: defaultFeatures
     },
@@ -33,7 +35,8 @@ async function main() {
       isbn: "978-93-343-9228-9",
       title: "Pulpe Dentaire – General Surgery",
       description: "General Surgery simplified for dental students. Focuses strictly on essential knowledge required for exams without the unnecessary fluff.",
-      price: 250,
+      price: 300,
+      originalPrice: 350,
       image: "/general-surgery.jpg",
       features: defaultFeatures
     }

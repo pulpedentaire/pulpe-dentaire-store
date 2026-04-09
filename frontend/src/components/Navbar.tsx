@@ -35,7 +35,18 @@ export default function Navbar() {
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
         <div style={{ display: 'flex', alignItems: 'center', zIndex: 1100 }}>
           <Link href="/" onClick={() => setIsOpen(false)}>
-            <img src="/logo.png" alt="Pulpe Dentaire Logo" style={{ height: '50px', width: 'auto' }} />
+            <img 
+              src="/logo-transparent.png" 
+              alt="Pulpe Dentaire Logo" 
+              style={{ 
+                height: '70px', 
+                width: 'auto',
+                filter: 'drop-shadow(0 0 15px rgba(102, 252, 241, 0.4)) contrast(1.1) brightness(1.1)',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                cursor: 'pointer'
+              }} 
+              className="navbar-logo"
+            />
           </Link>
         </div>
 
@@ -81,6 +92,11 @@ export default function Navbar() {
       </div>
 
       <style jsx>{`
+        .navbar-logo:hover {
+          transform: scale(1.05);
+          filter: drop-shadow(0 0 15px rgba(102, 252, 241, 0.5)) contrast(1.2) !important;
+        }
+
         @media (max-width: 768px) {
           .mobile-toggle {
             display: flex !important;

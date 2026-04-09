@@ -36,16 +36,17 @@ model Address {
 }
 
 model Book {
-  id          Int         @id @default(autoincrement())
-  isbn        String      @unique
-  title       String
-  description String
-  price       Float
-  features    String[]
-  image       String      @default("/general-medicine.png")
-  stock       Int         @default(0)
-  order_items OrderItem[]
-  created_at  DateTime    @default(now())
+  id            Int         @id @default(autoincrement())
+  isbn          String      @unique
+  title         String
+  description   String
+  price         Float
+  originalPrice Float?
+  features      String[]
+  image         String      @default("/general-medicine.png")
+  stock         Int         @default(0)
+  order_items   OrderItem[]
+  created_at    DateTime    @default(now())
 }
 
 model Order {

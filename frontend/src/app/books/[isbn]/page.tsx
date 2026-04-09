@@ -52,7 +52,7 @@ export default function BookDetails({ params }: { params: { isbn: string } }) {
           <h1 style={{ marginBottom: '1rem', lineHeight: 1.2 }}>{book.title}</h1>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>ISBN: {book.isbn}</p>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            ₹{book.price} <span style={{ textDecoration: 'line-through', color: 'gray', fontSize: '1.2rem' }}>₹300</span>
+            ₹{book.price} <span style={{ textDecoration: 'line-through', color: 'gray', fontSize: '1.2rem' }}>₹350</span>
           </div>
 
           <p style={{ fontSize: '1.1rem', marginBottom: '2rem', lineHeight: 1.8 }}>
